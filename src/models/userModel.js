@@ -3,7 +3,7 @@ const pool = require('../config/db'); // Import the database pool from the confi
 // Function to find a user by their username
 const findUserByUsername = async (username) => {
   // Query the "User" table for a user with the given username
-  const res = await pool.query('SELECT * FROM "User" WHERE user_name = $1', [username]);
+  const res = await pool.query('SELECT * FROM user WHERE user_name = $1', [username]);
   
   // Return the first result row (user data)
   return res.rows[0];
@@ -13,7 +13,7 @@ const findUserByUsername = async (username) => {
 const createUser = async (username, password, isAdmin) => {
   // Insert a new user into the "User" table with the provided username, password, and admin status
   const res = await pool.query(
-    'INSERT INTO "User" (user_name, user_pass, is_admin) VALUES ($1, $2, $3) RETURNING *',
+    'INSERT INTO user (user_name, user_pass, is_admin) VALUES ($1, $2, $3) RETURNING *',
     [username, password, isAdmin]
   );
 
