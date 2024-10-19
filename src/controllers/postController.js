@@ -1,4 +1,4 @@
-const { createPost, findPostById, deletePostById, addCommentToPost, deleteCommentFromPost } = require('../models/postModel');
+const { createPost, findPostById, deletePostById, addCommentToPost, deleteCommentFromPost, getAllPosts } = require('../models/postModel');
 const jwt = require('jsonwebtoken');
 
 // Middleware: Ensure user is authenticated
@@ -78,10 +78,21 @@ const deleteComment = async (req, res) => {
   }
 };
 
+// Fetch all posts from the database
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await getAllPosts(); // Call the model function to fetch all posts
+    res.status(200).json({ posts }); // Send the posts in a JSON response
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve posts' });
+  }
+};
+
 module.exports = {
   createNewPost,
   deletePost,
   addComment,
   deleteComment,
-  authenticateUser
+  authenticateUser,
+  getAllPosts // Export the new function to get all posts
 };

@@ -15,6 +15,12 @@ const findPostById = async (postId) => {
   return result.rows[0];
 };
 
+const getAllPosts = async () => {
+  const query = 'SELECT * FROM posts ORDER BY created_at DESC'; 
+  const result = await db.query(query);
+  return result.rows;
+};
+
 // Delete post by ID
 const deletePostById = async (postId) => {
   const query = 'DELETE FROM posts WHERE post_id = $1';
@@ -40,6 +46,7 @@ const deleteCommentFromPost = async (postId, commentId, userId) => {
 module.exports = {
   createPost,
   findPostById,
+  getAllPosts,
   deletePostById,
   addCommentToPost,
   deleteCommentFromPost
